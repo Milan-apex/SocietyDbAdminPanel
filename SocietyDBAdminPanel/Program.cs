@@ -1,7 +1,13 @@
+using SocietyDBAdminPanel.Core.Services.SocietyDbService;
+using SocietyDBAdminPanel.Db.Dapper;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+builder.Services.AddScoped<IDapper, Dapperr>();
+builder.Services.AddScoped<ISocietyDbService, SocietyDbService>();
 
 var app = builder.Build();
 
