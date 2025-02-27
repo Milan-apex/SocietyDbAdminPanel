@@ -59,7 +59,7 @@ namespace SocietyDBAdminPanel.Core.Services.SocietyDbService
                 dynamicParameters.Add("@@SocCity", model.SocCity, DbType.String);
                 dynamicParameters.Add("@SocAddress", model.SocAddress, DbType.String);
                 dynamicParameters.Add("@@SocWebSite", model.SocWebSite, DbType.String);
-                var result = await _dapper.UpdateAsync<int>("AddOrUpdateSocDbMst", dynamicParameters, commandType: System.Data.CommandType.StoredProcedure);
+                var result = await _dapper.AddUpdateAsync("AddOrUpdateSocDbMst", dynamicParameters, commandType: System.Data.CommandType.StoredProcedure);
 
                 return result;
             }
@@ -67,6 +67,14 @@ namespace SocietyDBAdminPanel.Core.Services.SocietyDbService
             {
                 throw ex;
             }
+        }
+
+        public async Task<bool> DeleteRecordById(int ID)
+        {
+            var parameters = new DynamicParameters();
+            parameters.Add("@IntID", ID, DbType.Int32);
+
+            return await _dapper.DeleteAsync("DeleteSocDbMst", parameters, CommandType.StoredProcedure);
         }
     }
 }

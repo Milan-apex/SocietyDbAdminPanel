@@ -26,10 +26,27 @@ namespace SocietyDBAdminPanel.Controllers
             return Json(result);
         }
         [HttpPost]
-        public async Task<IActionResult> AddUpdateSocDbById(AddUpdateSocDBMstModel model)
+        public async Task<IActionResult> AddUpdateSocDbById([FromBody]AddUpdateSocDBMstModel model)
         {
             var result = await _societyDbService.AddOrUpdateSocDbMst(model);
             return Json(result);
+        }
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteRecordById(int id)
+        {
+            try
+            {
+                bool isDeleted = await _societyDbService.DeleteRecordById(id);
+
+                if (!isDeleted)
+                    return Ok(new { message = "Record deleted successfully." });
+
+                return NotFound(new { message = "Record not found." });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { message = "An error occurred.", error = ex.Message });
+            }
         }
     }
 }

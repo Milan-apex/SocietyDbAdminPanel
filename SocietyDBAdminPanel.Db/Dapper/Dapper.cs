@@ -340,6 +340,63 @@ namespace SocietyDBAdminPanel.Db.Dapper
             return result;
         }
 
+        public async Task<int> AddUpdateAsync(string sp, DynamicParameters parms, CommandType commandType = CommandType.StoredProcedure)
+        {
+            int result;
+            using IDbConnection db = new SqlConnection(GetConnectionString);
+            try
+            {
+                if (db.State == ConnectionState.Closed)
+                    db.Open();
+
+                using var tran = db.BeginTransaction();
+                try
+                {
+                    result = await db.ExecuteAsync(sp, parms, commandType: commandType, transaction: tran); // Change here
+                    tran.Commit();
+                }
+                catch (Exception ex)
+                {
+                    tran.Rollback();
+                    throw;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+            finally
+            {
+                if (db.State == ConnectionState.Open)
+                    db.Close();
+            }
+
+            return result;
+        }
+
+        public async Task<bool> DeleteAsync(string sp, DynamicParameters parms, CommandType commandType = CommandType.StoredProcedure)
+        {
+            using IDbConnection db = new SqlConnection(GetConnectionString);
+            try
+            {
+                if (db.State == ConnectionState.Closed)
+                    db.Open();
+
+                var result = await db.ExecuteAsync(sp, parms, commandType: commandType);
+                return result > 0; // Returns true if at least one row is affected
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+            finally
+            {
+                if (db.State == ConnectionState.Open)
+                    db.Close();
+            }
+        }
+
+
         public async Task<T> DeleteAsync<T>(string sp, DynamicParameters parms, CommandType commandType = CommandType.StoredProcedure)
         {
             T result;

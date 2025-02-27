@@ -36,5 +36,8 @@ namespace SocietyDBAdminPanel.Db.Dapper
         DataSet GetDataSet(string sp, DynamicParameters parms, CommandType commandType = CommandType.StoredProcedure);
         DataSet GetDataSetByConnectionString(string Connectionstring, string sp, DynamicParameters parms, CommandType commandType = CommandType.StoredProcedure);
         Task<IDisposable> QueryMultipleAsync(string proc_GetTransForMultipleGenerateEdit, DynamicParameters dbparams, CommandType commandType);
+        Task<int> AddUpdateAsync(string sp, DynamicParameters parms, CommandType commandType = CommandType.StoredProcedure);
+        Task<bool> DeleteAsync(string sp, DynamicParameters parms, CommandType commandType = CommandType.StoredProcedure);
+
     }
 }

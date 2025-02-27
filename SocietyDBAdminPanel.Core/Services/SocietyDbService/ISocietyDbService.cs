@@ -7,5 +7,6 @@ namespace SocietyDBAdminPanel.Core.Services.SocietyDbService
         Task<List<SocDBMstModel>> GetAllConnectionStringsAsync();
         Task<SocDBMstModel> GetSocDbByIdAsync(int id);
         Task<int> AddOrUpdateSocDbMst(AddUpdateSocDBMstModel model);
+        Task<bool> DeleteRecordById(int ID);
     }
 }
