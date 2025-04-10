@@ -41,6 +41,22 @@ namespace SocietyDBAdminPanel.Core.Services.SocietyDbService
                 throw ex;
             }
         }
+        public async Task<SocDBMstModel> GetSocInfoByIdAsync(string SocCode)
+        {
+            try
+            {
+                DynamicParameters dynamicParameters = new DynamicParameters();
+                dynamicParameters.Add("SocietyCd", SocCode, DbType.String);
+                var result = await _dapper.GetAsync<SocDBMstModel>("GetSocDBMstBySocietyCd", dynamicParameters, commandType: System.Data.CommandType.StoredProcedure);
+
+                return result;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
         public async Task<int> AddOrUpdateSocDbMst(AddUpdateSocDBMstModel model)
         {
             try

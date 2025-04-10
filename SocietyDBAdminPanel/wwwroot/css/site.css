@@ -21,6 +21,11 @@ body {
   margin-bottom: 60px;
 }
 
+.contain {
+    margin: 0px 100px !important;
+    width: 90vw !important;
+}
+
 .modal {
     display: none;
     position: fixed;
@@ -37,13 +42,47 @@ body {
 
 .modal-content {
     position:absolute;
-    top : 12%;
-    left : 50%;
-    width: 400px;
+    top : 20%;
+    left : 40%;
+    width: 420px;
+}
+
+.edit-modal-content {
+    position: absolute;
+    top: 20%;
+    left: 10%;
+    width: 80vw;
+    background:white;
+    border :1px solid red;
 }
 
 .close {
     float: right;
     cursor: pointer;
     font-size: 20px;
+}
+
+.askHead {
+    justify-content: space-between;
+    display: flex;
+    align-items:baseline;
+}
+
+.askHead p{
+    width : 20rem;
+}
+
+.w-83 {
+    width: 90vw;
+}
+
+#askModel{
+    border : 1px solid red;
+}
+.width60{
+    width : 70%;
+}
+
+.gobtn{
+    margin-left:10px;
 }

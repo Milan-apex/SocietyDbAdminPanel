@@ -16,20 +16,53 @@ namespace SocietyDBAdminPanel.Controllers
         [HttpGet]
         public async Task<IActionResult> Index()
         {
-            var result = await _societyDbService.GetAllConnectionStringsAsync();
-            return View(result);
+            try
+            {
+                var result = await _societyDbService.GetAllConnectionStringsAsync();
+                return View(result);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new
+                {
+                    message = "An error occurred.",
+                    error = ex.Message
+                });
+            }
         }
         [HttpGet]
-        public async Task<IActionResult> GetSocDbById([FromQuery]int Id)
+        public async Task<IActionResult> GetSocDbById([FromQuery] int Id)
         {
-            var result = await _societyDbService.GetSocDbByIdAsync(Id);
-            return Json(result);
+            try
+            {
+                var result = await _societyDbService.GetSocDbByIdAsync(Id);
+                return Json(result);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new
+                {
+                    message = "An error occurred.",
+                    error = ex.Message
+                });
+            }
         }
         [HttpPost]
-        public async Task<IActionResult> AddUpdateSocDbById([FromBody]AddUpdateSocDBMstModel model)
+        public async Task<IActionResult> AddUpdateSocDbById([FromBody] AddUpdateSocDBMstModel model)
         {
-            var result = await _societyDbService.AddOrUpdateSocDbMst(model);
-            return Json(result);
+            try
+            {
+                var result = await _societyDbService.AddOrUpdateSocDbMst(model);
+                return Json(result);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new
+                {
+                    message = "An error occurred.",
+                    error = ex.Message
+                });
+            }
         }
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteRecordById(int id)
@@ -46,6 +79,23 @@ namespace SocietyDBAdminPanel.Controllers
             catch (Exception ex)
             {
                 return StatusCode(500, new { message = "An error occurred.", error = ex.Message });
+            }
+        }
+        [HttpGet]
+        public async Task<IActionResult> GetSocInfoBySocCode([FromQuery] string SocCode)
+        {
+            try
+            {
+                var result = await _societyDbService.GetSocInfoByIdAsync(SocCode);
+                return Json(result);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new
+                {
+                    message = "An error occurred.",
+                    error = ex.Message
+                });
             }
         }
     }
